@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web SSH Client</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/modern-normalize/modern-normalize.min.css" />
+    <link rel="stylesheet" href="/vendor/xterm/xterm.css" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main id="app">
+      <section id="login-view" class="card">
+        <h1>Connexion</h1>
+        <form id="login-form">
+          <input id="login-username" placeholder="Utilisateur" value="admin" required />
+          <input id="login-password" type="password" placeholder="Mot de passe" value="admin" required />
+          <button type="submit">Se connecter</button>
+        </form>
+        <p class="hint">⚠️ Changez le mot de passe admin après la première connexion.</p>
+      </section>
+
+      <section id="dashboard-view" class="hidden">
+        <header>
+          <h1>Web SSH Dashboard</h1>
+          <div class="header-actions">
+            <button id="change-password-btn" class="secondary">Changer mon mot de passe</button>
+            <button id="logout-btn" class="secondary">Déconnexion</button>
+          </div>
+        </header>
+
+        <section class="layout">
+          <article class="card">
+            <h2>Serveurs</h2>
+            <form id="server-form">
+              <input id="server-id" type="hidden" />
+              <input id="server-name" placeholder="Nom" required />
+              <input id="server-host" placeholder="Adresse IP / Host" required />
+              <input id="server-port" type="number" min="1" max="65535" value="22" required />
+              <input id="server-username" placeholder="Utilisateur SSH" required />
+              <input id="server-password" type="password" placeholder="Mot de passe SSH (optionnel)" />
+              <textarea id="server-private-key" rows="4" placeholder="Clé privée SSH (optionnel)"></textarea>
+              <div class="actions">
+                <button type="submit" id="save-server-btn">Enregistrer</button>
+                <button type="button" id="reset-server-btn" class="secondary">Réinitialiser</button>
+              </div>
+            </form>
+            <ul id="server-list"></ul>
+          </article>
+
+          <article class="card terminal-card">
+            <h2>Terminal SSH</h2>
+            <div class="terminal-toolbar">
+              <select id="terminal-server-select"></select>
+              <button id="connect-btn">Connexion</button>
+              <button id="disconnect-btn" class="secondary">Déconnexion</button>
+            </div>
+            <div id="terminal"></div>
+            <p id="terminal-status">Statut: inactif</p>
+          </article>
+        </section>
+      </section>
+    </main>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/vendor/xterm/xterm.js"></script>
+    <script src="/vendor/xterm-addon-fit/xterm-addon-fit.js"></script>
+    <script src="/app.js"></script>
+  </body>
+</html>

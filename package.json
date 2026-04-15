@@ -1,0 +1,27 @@
+{
+  "name": "sshwebclient",
+  "version": "1.0.0",
+  "description": "Web SSH Client full stack",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node src/index.js",
+    "prisma:generate": "prisma generate",
+    "prisma:push": "prisma db push",
+    "init:admin": "node scripts/initAdmin.js",
+    "bootstrap": "npm run prisma:generate && npm run prisma:push && npm run init:admin",
+    "docker:start": "npm run bootstrap && npm run start"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.7.0",
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "prisma": "^6.7.0",
+    "socket.io": "^4.7.5",
+    "ssh2": "^1.15.0",
+    "xterm": "^5.5.0",
+    "xterm-addon-fit": "^0.8.0"
+  }
+}
