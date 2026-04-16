@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+# Permissions minimales: lecture du code uniquement pour la CI.
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run lint (if script exists)
+        run: |
+          if node -e "const s=require('./package.json').scripts||{};process.exit(s.lint?0:1)"; then
+            npm run lint
+          else
+            echo "No lint script configured; skipping."
+          fi
+
+      - name: Run tests (if script exists)
+        run: |
+          if node -e "const s=require('./package.json').scripts||{};process.exit(s.test?0:1)"; then
+            npm test
+          else
+            echo "No test script configured; skipping."
+          fi
+
+      - name: Validate Docker build
+        run: docker build -t web-ssh-ci:latest .

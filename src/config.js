@@ -1,3 +1,10 @@
+const fs = require('fs');
+const path = require('path');
+require('dotenv').config();
+
+const dataDir = process.env.DATA_DIR || path.join(process.cwd(), 'data');
+fs.mkdirSync(dataDir, { recursive: true });
+
 const path = require('path');
 require('dotenv').config();
 
@@ -7,6 +14,7 @@ const config = {
   encryptionKey: process.env.ENCRYPTION_KEY || 'change_me_32_characters_minimum_key',
   adminUser: process.env.ADMIN_USER || 'admin',
   adminPass: process.env.ADMIN_PASS || 'admin',
+  databaseUrl: process.env.DATABASE_URL || `file:${path.join(dataDir, 'app.db')}`,
   databaseUrl: process.env.DATABASE_URL || `file:${path.join('/app/data', 'app.db')}`,
 };
 
