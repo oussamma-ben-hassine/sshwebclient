@@ -48,6 +48,7 @@ Si tout est OK, l'application est disponible sur `http://localhost:3000`.
 ---
 
 ## Exécution locale (Docker)
+## Lancer avec Docker
 
 ```bash
 docker-compose up --build
@@ -192,6 +193,21 @@ Si le déploiement échoue sur le VPS, vérifiez dans cet ordre:
 Le script `scripts/deploy.sh` arrête explicitement le déploiement avec un message clair si Docker, Docker Compose, `.env` ou `docker-compose.prod.yml` est manquant.
 
 ---
+## Persistance
+
+Le dossier `./data` est monté vers `/app/data` dans le conteneur pour conserver SQLite.
+
+## Variables d'environnement
+
+Voir `.env.example`.
+
+Variables clés:
+
+- `JWT_SECRET`
+- `ENCRYPTION_KEY`
+- `ADMIN_USER`
+- `ADMIN_PASS`
+- `DATABASE_URL`
 
 ## Développement local (sans Docker)
 

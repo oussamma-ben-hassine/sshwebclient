@@ -5,6 +5,9 @@ require('dotenv').config();
 const dataDir = process.env.DATA_DIR || path.join(process.cwd(), 'data');
 fs.mkdirSync(dataDir, { recursive: true });
 
+const path = require('path');
+require('dotenv').config();
+
 const config = {
   port: Number(process.env.PORT || 3000),
   jwtSecret: process.env.JWT_SECRET || 'change_me_jwt_secret',
@@ -12,6 +15,7 @@ const config = {
   adminUser: process.env.ADMIN_USER || 'admin',
   adminPass: process.env.ADMIN_PASS || 'admin',
   databaseUrl: process.env.DATABASE_URL || `file:${path.join(dataDir, 'app.db')}`,
+  databaseUrl: process.env.DATABASE_URL || `file:${path.join('/app/data', 'app.db')}`,
 };
 
 process.env.DATABASE_URL = config.databaseUrl;
