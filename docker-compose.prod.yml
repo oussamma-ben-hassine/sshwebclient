@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  web-ssh:
+    # Image poussée par GitHub Actions sur GHCR.
+    image: ${IMAGE_REPO}:${IMAGE_TAG}
+    container_name: web-ssh
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    restart: always
